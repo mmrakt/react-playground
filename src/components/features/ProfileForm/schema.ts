@@ -22,12 +22,21 @@ export const isUniqueEmail = async (email: string) => {
 export const UserSchema = z
   .object({
     name: z.string(),
+    // coerce()で任意のプリミティブ型に変換させる
+    age: z.coerce.number().positive().int(),
     email: z.string().email().refine(isUniqueEmail, {
       message: "Email is already taken",
     }),
     password: z.string().min(8),
     passwordConfirmation: z.string(),
+    // terms: z.literal(true, {
+    // errorMapでメッセージのカスタマイズ
+    //   errorMap: () => {
+    //     return { message: "Please check the terms of service" };
+    //   },
+    // }),
   })
+  // z.object()に対してrefine()を使うことで他のフィールドを参照できる
   .refine(
     ({ password, passwordConfirmation }) => password === passwordConfirmation,
     {

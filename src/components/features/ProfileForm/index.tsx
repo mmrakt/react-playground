@@ -18,6 +18,7 @@ import {
   UserSchema,
   UserSchemaType,
 } from "@/components/features/ProfileForm/schema";
+import { Checkbox } from "@/components/ui/checkbox";
 
 export const ProfileForm = () => {
   const form = useForm<UserSchemaType>({
@@ -25,6 +26,7 @@ export const ProfileForm = () => {
     mode: "onTouched",
     defaultValues: {
       name: "",
+      age: undefined,
       email: "",
       password: "",
       passwordConfirmation: "",
@@ -59,12 +61,29 @@ export const ProfileForm = () => {
         />
         <FormField
           control={form.control}
+          name="age"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Age</FormLabel>
+              <FormControl>
+                <Input placeholder="20" {...field} />
+              </FormControl>
+              <FormMessage />
+            </FormItem>
+          )}
+        />
+        <FormField
+          control={form.control}
           name="email"
           render={({ field }) => (
             <FormItem>
               <FormLabel>Email</FormLabel>
               <FormControl>
-                <Input placeholder="test1@example.com" {...field} />
+                <Input
+                  type="email"
+                  placeholder="test1@example.com"
+                  {...field}
+                />
               </FormControl>
               <FormDescription>This is your Email Address.</FormDescription>
               <FormMessage />
@@ -78,7 +97,7 @@ export const ProfileForm = () => {
             <FormItem>
               <FormLabel>Password</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input type="password" placeholder="" {...field} />
               </FormControl>
               <FormDescription>This is your Password.</FormDescription>
               <FormMessage />
@@ -92,12 +111,29 @@ export const ProfileForm = () => {
             <FormItem>
               <FormLabel>Password Confirmation</FormLabel>
               <FormControl>
-                <Input placeholder="" {...field} />
+                <Input type="password" placeholder="" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
           )}
         />
+        {/* TODO: CheckboxをFormへの組み込み */}
+        {/* <FormField
+          control={form.control}
+          name="terms"
+          render={({ field }) => (
+            <FormItem>
+              <Checkbox {...field} />
+              <label
+                htmlFor="terms2"
+                className="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+              >
+                Accept terms and conditions
+              </label>
+              <FormMessage />
+            </FormItem>
+          )}
+        /> */}
         <Button type="submit">Submit</Button>
       </form>
     </Form>
