@@ -6,7 +6,7 @@ const App = () => {
   return (
     <>
       <Header />
-      <main className="max-w-7xl">
+      <main className="max-w-7xl mx-auto">
         <ProfileForm />
       </main>
       <footer className=""></footer>
